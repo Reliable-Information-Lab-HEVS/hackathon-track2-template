@@ -1,0 +1,24 @@
+# Track 2 — application template
+
+Starter skeleton for the Track 2 export control advisor. Read the scenario, the data description, the full I/O contract and the submission rules on the website:
+<https://hackathon-armasuisse.github.io/tracks/track-2/>
+
+We note that usage of this template is **optional**. You can start from scratch or use your own framework, as long as you meet the requirements.
+
+## What's here
+
+- `app/main.py` — the `/advise` endpoint skeleton; implement your advisor here.
+- `inference.env.example` — the inference endpoint variables we pass at deploy.
+- `Dockerfile` — builds and runs the app on port 8080.
+
+The legal sources and the party lists are distributed separately as an encrypted zip, please see the website.
+
+## Run
+
+```bash
+docker build -t track2 .
+docker run -p 8080:8080 -v /path/to/track2_data:/corpus:ro --env-file inference.env track2
+```
+
+
+
