@@ -13,12 +13,23 @@ We note that usage of this template is **optional**. You can start from scratch 
 
 The legal sources and the party lists are distributed separately as an encrypted zip, please see the website.
 
-## Run
+## Deploying on your team VM
+
+Your VM already has a TLS certificate and a public hostname,
+`llmhack-team-N.hackathon.intlab.ch`. `compose.yaml` in this repository runs two
+containers: **Caddy**, which terminates TLS on that hostname, and **your app**,
+which Caddy reaches at `app:8080` on the internal network.
 
 ```bash
-docker build -t track2 .
-docker run -p 8080:8080 -v /path/to/track2_data:/corpus:ro --env-file inference.env track2
+cp inference.env.example inference.env     # then fill in the key and model
+nano Caddyfile                             # replace N with your team number
+mkdir -p data && unzip <track2_data.zip> -d data
+docker compose up -d --build
 ```
 
+Check it from another machine:
 
+```bash
+curl https://llmhack-team-N.hackathon.intlab.ch/health
+```
 
